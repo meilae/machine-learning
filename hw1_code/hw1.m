@@ -67,7 +67,7 @@ LabelsTest = Labels(1,testIdx);
 % Training with Logistic Regression.
 fprintf('Training ... ');
 tic;
-theta = logisticRegressionTrain( DataTrainI, LabelsTrain , 5);
+theta = logisticRegressionTrain_WONGMEILING( DataTrainI, LabelsTrain , 5);
 % theta = logisticRegressionTrain_SOLUTION( DataTrainI, LabelsTrain , 5);
 toc;
 
