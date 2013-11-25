@@ -1,0 +1,34 @@
+function [C, A] = Kmeans_WONGMEILING(X, Cinit)
+
+% dummy
+%C = Cinit;
+%A = ones(1,size(X,2)); % this is not a proper assignment
+
+
+k = size(Cinit, 2);
+Y = zeros(size(X, 2), 1);
+[C, Y] = kmeans_rec(Cinit', X', Y, k);
+A = Y';
+C = C';
+
+end
+
+function [C, Y] = kmeans_rec(Cinit, X, prevY, k)
+        C = zeros([k, size(Cinit, 2)]);
+        Y = dsearchn(Cinit, X); %returns the indices y of the closest points in
+				%Cinit for each point in X. 
+				%Cinit is an m-by-n matrix representing m points 
+				%in n-dimensional space. X is a p-by-n matrix, 
+				%representing p points in n-dimensional space. 
+				%The output y is a column vector of length p.
+		
+        for i = 1:k 
+                C(i,:) = sum(X(Y==i, :))/sum(Y==i); %count the number of occurrences of i
+        endfor
+
+        if ~(isequal(Y, prevY))
+                [C, Y] = kmeans_rec(C, X, Y, k);
+        end
+endfunction
+
+
