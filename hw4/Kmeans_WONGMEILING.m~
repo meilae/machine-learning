@@ -12,8 +12,13 @@ Y = zeros(size(X, 2), 1);
 
 [C, Y] = kmeans_rec(Cinit', X', Y, k);
 
+d = distortion_func(X', Y, C, k);
+fprintf('function result %d\n', d);
+
 A = Y';
 C = C';
+
+
 
 end
 
@@ -39,5 +44,13 @@ function [C, Y] = kmeans_rec(Cinit, X, prevY, k)
         if ~(isequal(Y, prevY))
                 [C, Y] = kmeans_rec(C, X, Y, k);
         end
+endfunction
+
+function J = distortion_func(X, Y, C, k)
+	J = 0;
+	for i = 1:k
+		dif = X(Y==i, :) - repmat(C(i, :), sum(Y==i), 1);
+		J += sum(sum(dif .^ 2, 2));
+	endfor	
 endfunction
 

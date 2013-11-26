@@ -12,8 +12,13 @@ Y = zeros(size(X, 2), 1);
 
 [C, Y] = kmeans_rec(Cinit', X', Y, k);
 
+d = distortion_func(X', Y, C, k);
+fprintf('the cost function result is %d\n', d);
+
 A = Y';
 C = C';
+
+
 
 end
 
