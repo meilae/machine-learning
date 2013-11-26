@@ -41,4 +41,11 @@ function [C, Y] = kmeans_rec(Cinit, X, prevY, k)
         end
 endfunction
 
+function J = distortion_func(X, Y, C, k)
+	J = 0;
+	for i = 1:k
+		dif = X(Y==i, :) - repmat(C(i, :), sum(Y==i), 1);
+		J += sum(sum(dif .^ 2, 2));
+	endfor	
+endfunction
 
